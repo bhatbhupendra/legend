@@ -486,24 +486,6 @@
                 <p class="dash-panel-subtitle">Real-time product & stock overview</p>
             </div>
         </div>
-        <div class="dash-panel-header-right">
-            {{-- Replace href with your actual routes --}}
-            <a href="{{ route('igloohome.create') }}" class="dash-hdr-btn success">
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                    <line x1="12" y1="5" x2="12" y2="19" />
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
-                Add Product
-            </a>
-            <a href="{{ route('igloohome.products.export.excel', request()->query()) }}" class="dash-hdr-btn primary">
-                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                Export Excel
-            </a>
-        </div>
     </div>
 
     {{-- ── KPI CARDS ── --}}
@@ -561,38 +543,6 @@
             <div class="dash-kpi-value">¥ {{ number_format($summary['total_value'], 2) }}</div>
             <div class="dash-kpi-meta">Total value in Yen</div>
         </div>
-
-        {{-- Card 5: PLACEHOLDER — e.g. Total Sales / Revenue --}}
-        <div class="dash-kpi-card teal">
-            <div class="dash-kpi-icon teal">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-                    <polyline points="17 6 23 6 23 12" />
-                </svg>
-            </div>
-            <div class="dash-kpi-label">Total Sales</div>
-            {{-- Replace with: {{ $summary['total_sales'] }} --}}
-            <div class="dash-kpi-value placeholder-val">—</div>
-            <div class="dash-kpi-meta">Replace with real value</div>
-        </div>
-
-        {{-- Card 6: PLACEHOLDER — e.g. Out of Stock / Pending Orders --}}
-        <div class="dash-kpi-card purple">
-            <div class="dash-kpi-icon purple">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                    <circle cx="9" cy="21" r="1" />
-                    <circle cx="20" cy="21" r="1" />
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                </svg>
-            </div>
-            <div class="dash-kpi-label">Pending Orders</div>
-            {{-- Replace with: {{ $summary['pending_orders'] }} --}}
-            <div class="dash-kpi-value placeholder-val">—</div>
-            <div class="dash-kpi-meta">Replace with real value</div>
-        </div>
-
-
-
     </div>{{-- /dash-kpi-row --}}
 
     {{-- ── INFO + BUTTONS ROW ── --}}
@@ -637,31 +587,6 @@
         @empty
         <p>None</p>
         @endforelse
-    </div>
-
-    {{-- Info Block 3: Recent Activity (placeholder) --}}
-    <div class="dash-info-block">
-        <div class="dash-info-block-title">----------</div>
-        <div class="dash-info-line">
-            <span class="label" style="color:#d1d5db;">-------</span>
-            <span class="placeholder-line"></span>
-        </div>
-        <div class="dash-info-line">
-            <span class="label" style="color:#d1d5db;">-------</span>
-            <span class="placeholder-line"></span>
-        </div>
-        <div class="dash-info-line">
-            <span class="label" style="color:#d1d5db;">-------</span>
-            <span class="placeholder-line"></span>
-        </div>
-        <div class="dash-info-line">
-            <span class="label" style="color:#d1d5db;">--------</span>
-            <span class="placeholder-line"></span>
-        </div>
-        <div class="dash-info-line">
-            <span class="label" style="color:#d1d5db;">-------</span>
-            <span class="placeholder-line"></span>
-        </div>
     </div>
 
     {{-- Buttons Block --}}
@@ -713,26 +638,14 @@
 {{-- ── NOTICE / STATUS STRIP ── --}}
 <div class="dash-notice-strip">
     <div class="dash-notice-item">
-        <span class="dash-notice-dot green"></span>
-        <span>System <strong>Online</strong></span>
-    </div>
-    <div class="dash-notice-item">
-        <span class="dash-notice-dot red"></span>
-        <span><strong>{{ $summary['low_stock'] }}</strong> items below threshold</span>
+        <span class="dash-notice-dot blue"></span>
+        <span> Legend <strong></strong></span>
     </div>
     <div class="dash-notice-item">
         <span class="dash-notice-dot blue"></span>
-        <span>Last synced: <strong>{{ now()->format('d M Y, H:i') }}</strong></span>
+        <span>Date: <strong>{{ now()->format('d M Y, H:i') }}</strong></span>
     </div>
     {{-- Placeholder notices — replace with real conditions --}}
-    <div class="dash-notice-item">
-        <span class="dash-notice-dot gray"></span>
-        <span class="dash-notice-placeholder">＋ Add your status notice here</span>
-    </div>
-    <div class="dash-notice-item">
-        <span class="dash-notice-dot gray"></span>
-        <span class="dash-notice-placeholder">＋ Add your status notice here</span>
-    </div>
 </div>
 
 </div>{{-- /dash-panel --}}

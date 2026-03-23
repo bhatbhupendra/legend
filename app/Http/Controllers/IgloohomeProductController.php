@@ -63,6 +63,8 @@ class IgloohomeProductController extends Controller
 
             'opening_stock'=>'nullable|integer|min:0',
 
+            'buy_price'=>'required',
+
         ]);
 
 
@@ -81,6 +83,8 @@ class IgloohomeProductController extends Controller
                 'color'=>$validated['color'] ?? null,
 
                 'stock'=>$openingStock,
+
+                'buy_price'=>$validated['buy_price'],
 
                 'is_active'=>true,
 

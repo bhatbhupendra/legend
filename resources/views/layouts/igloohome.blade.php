@@ -579,15 +579,7 @@
                 <div class="igl-nav-divider"></div>
                 <div class="igl-sidebar-section">More</div>
 
-                <a href="#" class="igl-nav-link">
-                    <svg class="igl-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path
-                            d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 0-2 2h-2a2 2 0 0 0-2-2z" />
-                    </svg>
-                    Reports
-                </a>
-
-                <a href="#" class="igl-nav-link">
+                <a href="{{ route('users.index') }}" class="igl-nav-link">
                     <svg class="igl-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <circle cx="12" cy="8" r="4" />
                         <path d="M20 21a8 8 0 1 0-16 0" />
@@ -595,7 +587,7 @@
                     Users
                 </a>
 
-                <a href="#" class="igl-nav-link">
+                <a href="{{route('profile.edit')}}" class="igl-nav-link">
                     <svg class="igl-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="3" />
                         <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14" />
