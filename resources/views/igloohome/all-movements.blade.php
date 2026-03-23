@@ -787,34 +787,6 @@
                             </span>
                         </th>
 
-                        <th onclick="mtblSortTh('stock_before')" id="th-stock_before">
-                            <span class="th-inner">
-                                Before
-                                <span class="sort-arrows">
-                                    <svg viewBox="0 0 10 6">
-                                        <path d="M0 6l5-6 5 6z" fill="currentColor" />
-                                    </svg>
-                                    <svg viewBox="0 0 10 6">
-                                        <path d="M0 0l5 6 5-6z" fill="currentColor" />
-                                    </svg>
-                                </span>
-                            </span>
-                        </th>
-
-                        <th onclick="mtblSortTh('stock_after')" id="th-stock_after">
-                            <span class="th-inner">
-                                After
-                                <span class="sort-arrows">
-                                    <svg viewBox="0 0 10 6">
-                                        <path d="M0 6l5-6 5 6z" fill="currentColor" />
-                                    </svg>
-                                    <svg viewBox="0 0 10 6">
-                                        <path d="M0 0l5 6 5-6z" fill="currentColor" />
-                                    </svg>
-                                </span>
-                            </span>
-                        </th>
-
                         <th onclick="mtblSortTh('status')" id="th-status">
                             <span class="th-inner">
                                 Status
@@ -899,8 +871,6 @@
                         data-order_id="{{ strtolower($movement->order_id ?? '-') }}"
                         data-movement_date="{{ $movement->movement_date ?? '' }}"
                         data-type="{{ strtolower($movement->type ?? '-') }}" data-qty="{{ $movement->qty ?? 0 }}"
-                        data-stock_before="{{ $movement->stock_before ?? 0 }}"
-                        data-stock_after="{{ $movement->stock_after ?? 0 }}"
                         data-status="{{ strtolower($movement->status ?? '-') }}" data-info=""
                         data-shipped_to="{{ strtolower($movement->shipped_to ?? '-') }}"
                         data-done_by="{{ strtolower($movement->user->name ?? 'n/a') }}"
@@ -936,8 +906,6 @@
                         </td>
 
                         <td><span class="qty-badge">{{ $movement->qty }}</span></td>
-                        <td>{{ $movement->stock_before ?? '-' }}</td>
-                        <td>{{ $movement->stock_after ?? '-' }}</td>
 
                         <td>
                             <span class="status-pill {{ strtolower($movement->status ?? 'initialized') }}">
@@ -1128,7 +1096,7 @@
             let va = a.dataset[col] || '';
             let vb = b.dataset[col] || '';
 
-            if (['qty', 'stock_before', 'stock_after'].includes(col)) {
+            if (['qty'].includes(col)) {
                 va = parseInt(va) || 0;
                 vb = parseInt(vb) || 0;
             }
@@ -1177,7 +1145,7 @@
     };
 
     function updateThClasses() {
-        ['product', 'order_id', 'movement_date', 'type', 'qty', 'stock_before', 'stock_after', 'status',
+        ['product', 'order_id', 'movement_date', 'type', 'qty', 'status',
             'shipped_to', 'done_by', 'note'
         ].forEach(c => {
             const th = document.getElementById('th-' + c);

@@ -775,9 +775,9 @@ mark.etbl-hl {
                             </div>
                         </td>
                         <td>
-                            @if($product->stock <= 5) <span class="stock-pill low">{{ $product->stock }}</span>
+                            @if($product->stock <= 5) <span class="stock-pill low">{{ $product->current_stock }}</span>
                                 @else
-                                <span class="stock-pill ok">{{ $product->stock }}</span>
+                                <span class="stock-pill ok">{{ $product->current_stock }}</span>
                                 @endif
                         </td>
                         <td>

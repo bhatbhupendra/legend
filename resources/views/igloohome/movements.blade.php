@@ -663,34 +663,6 @@
                             </span>
                         </th>
 
-                        <th onclick="htblSortTh('stock_before')" id="th-stock_before">
-                            <span class="th-inner">
-                                Before
-                                <span class="sort-arrows">
-                                    <svg viewBox="0 0 10 6">
-                                        <path d="M0 6l5-6 5 6z" fill="currentColor" />
-                                    </svg>
-                                    <svg viewBox="0 0 10 6">
-                                        <path d="M0 0l5 6 5-6z" fill="currentColor" />
-                                    </svg>
-                                </span>
-                            </span>
-                        </th>
-
-                        <th onclick="htblSortTh('stock_after')" id="th-stock_after">
-                            <span class="th-inner">
-                                After
-                                <span class="sort-arrows">
-                                    <svg viewBox="0 0 10 6">
-                                        <path d="M0 6l5-6 5 6z" fill="currentColor" />
-                                    </svg>
-                                    <svg viewBox="0 0 10 6">
-                                        <path d="M0 0l5 6 5-6z" fill="currentColor" />
-                                    </svg>
-                                </span>
-                            </span>
-                        </th>
-
                         <th onclick="htblSortTh('status')" id="th-status">
                             <span class="th-inner">
                                 Status
@@ -796,8 +768,6 @@
                     <tr data-order_id="{{ strtolower($movement->order_id ?? '-') }}"
                         data-movement_date="{{ $movement->movement_date ?? '' }}"
                         data-type="{{ strtolower($movement->type ?? '-') }}" data-qty="{{ $movement->qty ?? 0 }}"
-                        data-stock_before="{{ $movement->stock_before ?? 0 }}"
-                        data-stock_after="{{ $movement->stock_after ?? 0 }}"
                         data-status="{{ strtolower($movement->status ?? '-') }}"
                         data-requested_by="{{ strtolower($movement->requested_by ?? '-') }}"
                         data-shipped_by="{{ strtolower($movement->shipped_by ?? '-') }}"
@@ -821,8 +791,6 @@
                         </td>
 
                         <td><span class="qty-badge">{{ $movement->qty }}</span></td>
-                        <td>{{ $movement->stock_before ?? '-' }}</td>
-                        <td>{{ $movement->stock_after ?? '-' }}</td>
 
                         <td>
                             <span class="status-pill {{ strtolower($movement->status ?? 'initialized') }}">
@@ -906,8 +874,6 @@
             const movementDate = tr.dataset.movement_date || '';
             const type = tr.dataset.type || '';
             const qty = tr.dataset.qty || '';
-            const stockBefore = tr.dataset.stock_before || '';
-            const stockAfter = tr.dataset.stock_after || '';
             const status = tr.dataset.status || '';
             const requestedBy = tr.dataset.requested_by || '';
             const shippedBy = tr.dataset.shipped_by || '';
@@ -921,7 +887,6 @@
                 movementDate.includes(q) ||
                 type.includes(q) ||
                 qty.toString().includes(q) ||
-                stockBefore.toString().includes(q) ||
                 stockAfter.toString().includes(q) ||
                 status.includes(q) ||
                 requestedBy.includes(q) ||
@@ -984,7 +949,7 @@
             let va = a.dataset[col] || '';
             let vb = b.dataset[col] || '';
 
-            if (['qty', 'stock_before', 'stock_after'].includes(col)) {
+            if (['qty'].includes(col)) {
                 va = parseInt(va) || 0;
                 vb = parseInt(vb) || 0;
             }
@@ -1033,7 +998,7 @@
     };
 
     function updateThClasses() {
-        ['order_id', 'movement_date', 'type', 'qty', 'stock_before', 'stock_after', 'status', 'requested_by',
+        ['order_id', 'movement_date', 'type', 'qty', 'status', 'requested_by',
             'shipped_by', 'shipped_to', 'shipped_on', 'done_by', 'note'
         ].forEach(c => {
             const th = document.getElementById('th-' + c);

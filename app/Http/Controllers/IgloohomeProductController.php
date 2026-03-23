@@ -158,8 +158,8 @@ class IgloohomeProductController extends Controller
         return view('igloohome.stock-in', ['product' => $igloohome]);
     }
 
-    public function stockIn(Request $request, IgloohomeProduct $igloohome   ){
-
+    public function stockIn(Request $request, IgloohomeProduct $igloohome)
+    {
         $validated = $request->validate([
             'order_id'           => 'nullable|string|max:255',
             'qty'                => 'required|integer|min:1',
@@ -175,39 +175,25 @@ class IgloohomeProductController extends Controller
             'note'               => 'nullable|string|max:255',
         ]);
 
+        IgloohomeStockMovement::create([
+            'order_id'           => $validated['order_id'] ?? null,
+            'product_id'         => $igloohome->id,
+            'type'               => 'in',
+            'qty'                => $validated['qty'],
+            'movement_date'      => $validated['movement_date'],
+            'requested_by'       => $validated['requested_by'] ?? null,
+            'shipped_by'         => $validated['shipped_by'] ?? null,
+            'shipped_to'         => $validated['shipped_to'] ?? null,
+            'shipped_on'         => $validated['shipped_on'] ?? null,
+            'status'             => $validated['status'] ?? 'initialized',
+            'tracking_number'    => $validated['tracking_number'] ?? null,
+            'carrier'            => $validated['carrier'] ?? null,
+            'reference_document' => $validated['reference_document'] ?? null,
+            'note'               => $validated['note'] ?? 'New inventory received',
+            'user_id'            => auth()->id(),
+        ]);
 
-        DB::transaction(function() use ($validated,$igloohome){
-
-            $before = $igloohome->stock;
-
-            $after = $before + $validated['qty'];
-
-            $igloohome->update(['stock'=>$after]);
-
-            IgloohomeStockMovement::create([
-                'order_id'           => $validated['order_id'] ?? null,
-                'product_id'         => $igloohome->id,
-                'type'               => 'in',
-                'qty'                => $validated['qty'],
-                'movement_date'      => $validated['movement_date'],
-                'requested_by'       => $validated['requested_by'] ?? null,
-                'shipped_by'         => $validated['shipped_by'] ?? null,
-                'shipped_to'         => $validated['shipped_to'] ?? null,
-                'shipped_on'         => $validated['shipped_on'] ?? null,
-                'status'             => $validated['status'] ?? 'initialized',
-                'tracking_number'    => $validated['tracking_number'] ?? null,
-                'carrier'            => $validated['carrier'] ?? null,
-                'reference_document' => $validated['reference_document'] ?? null,
-                'stock_before'       => $before,
-                'stock_after'        => $after,
-                'note'               => $validated['note'] ?? 'New inventory received',
-                'user_id'            => auth()->id(),
-            ]);
-
-        });
-
-        return back()->with('success','Stock added successfully.');
-
+        return back()->with('success', 'Stock added successfully.');
     }
 
     public function stockOutForm(IgloohomeProduct $igloohome){
@@ -231,40 +217,34 @@ class IgloohomeProductController extends Controller
             'note'               => 'nullable|string|max:255',
         ]);
 
-        if ($validated['qty'] > $igloohome->stock) {
-            return back()->withErrors(['qty' => 'Not enough stock available.'])->withInput();
+        $currentStock = $igloohome->current_stock;
+
+        if ($validated['qty'] > $currentStock) {
+            return back()->withErrors([
+                'qty' => 'Not enough stock available.'
+            ])->withInput();
         }
 
-        DB::transaction(function () use ($validated, $igloohome) {
-            $before = $igloohome->stock;
-            $after  = $before - $validated['qty'];
+        IgloohomeStockMovement::create([
+            'order_id'           => $validated['order_id'] ?? null,
+            'product_id'         => $igloohome->id,
+            'type'               => 'out',
+            'qty'                => $validated['qty'],
+            'movement_date'      => $validated['movement_date'],
+            'requested_by'       => $validated['requested_by'] ?? null,
+            'shipped_by'         => $validated['shipped_by'] ?? null,
+            'shipped_to'         => $validated['shipped_to'] ?? null,
+            'shipped_on'         => $validated['shipped_on'] ?? null,
+            'status'             => $validated['status'] ?? 'initialized',
+            'tracking_number'    => $validated['tracking_number'] ?? null,
+            'carrier'            => $validated['carrier'] ?? null,
+            'reference_document' => $validated['reference_document'] ?? null,
+            'note'               => $validated['note'] ?? 'Product sold',
+            'user_id'            => auth()->id(),
+        ]);
 
-            $igloohome->update([
-                'stock' => $after,
-            ]);
-
-            IgloohomeStockMovement::create([
-                'order_id'           => $validated['order_id'] ?? null,
-                'product_id'         => $igloohome->id,
-                'type'               => 'out',
-                'qty'                => $validated['qty'],
-                'movement_date'      => $validated['movement_date'],
-                'requested_by'       => $validated['requested_by'] ?? null,
-                'shipped_by'         => $validated['shipped_by'] ?? null,
-                'shipped_to'         => $validated['shipped_to'] ?? null,
-                'shipped_on'         => $validated['shipped_on'] ?? null,
-                'status'             => $validated['status'] ?? 'initialized',
-                'tracking_number'    => $validated['tracking_number'] ?? null,
-                'carrier'            => $validated['carrier'] ?? null,
-                'reference_document' => $validated['reference_document'] ?? null,
-                'stock_before'       => $before,
-                'stock_after'        => $after,
-                'note'               => $validated['note'] ?? 'Product sold',
-                'user_id'            => auth()->id(),
-            ]);
-        });
-
-        return redirect()->route('igloohome.index')->with('success', 'Stock removed successfully.');
+        return redirect()->route('igloohome.index')
+            ->with('success', 'Stock removed successfully.');
     }
 
 
@@ -309,6 +289,7 @@ class IgloohomeProductController extends Controller
     public function updateMovement(Request $request, IgloohomeStockMovement $movement){
         $validated = $request->validate([
             'order_id' => 'nullable|string|max:255',
+            'qty' => 'required|integer|min:1',
             'movement_date' => 'nullable|date',
             'requested_by' => 'nullable|string|max:255',
             'shipped_by' => 'nullable|string|max:255',

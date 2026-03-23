@@ -14,8 +14,7 @@ class IgloohomeProduct extends Model
         'sku',
         'name_en',
         'name_jp',
-        'color',
-        'stock',
+        'color',   
         'buy_price',
         'is_active',
 
@@ -24,6 +23,18 @@ class IgloohomeProduct extends Model
     public function stockMovements()
     {
         return $this->hasMany(IgloohomeStockMovement::class,'product_id');
+    }
+
+    public function getCurrentStockAttribute(){
+        $stockIn = $this->stockMovements()
+            ->where('type', 'in')
+            ->sum('qty');
+
+        $stockOut = $this->stockMovements()
+            ->where('type', 'out')
+            ->sum('qty');
+
+        return $stockIn - $stockOut;
     }
 
 }

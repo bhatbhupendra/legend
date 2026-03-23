@@ -451,6 +451,17 @@
                                     </div>
 
                                     <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Quantity <span
+                                                class="eform-required">*</span></label>
+                                        <input type="number" name="qty" id="qty" class="form-control eform-control"
+                                            min="1" value="{{ old('qty', $movement->qty)}}" required
+                                            oninput="updateMovementPreview()">
+                                        @error('qty')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 eform-field">
                                         <label class="eform-label">Movement Date</label>
                                         <input type="date" name="movement_date" id="movement_date"
                                             class="form-control eform-control"
@@ -603,7 +614,7 @@
                                             id="preview-order-id">{{ old('order_id', $movement->order_id) ?: '-' }}</strong>
                                     </span>
                                     <span class="eform-pill">
-                                        Qty: <strong>{{ $movement->qty ?? 0 }}</strong>
+                                        Qty: <strong id="preview-qty">{{ $movement->qty ?? 0 }}</strong>
                                     </span>
                                     <span class="eform-pill">
                                         Date: <strong
@@ -676,6 +687,7 @@
 function updateMovementPreview() {
     const orderId = document.getElementById('order_id')?.value || '-';
     const movementDate = document.getElementById('movement_date')?.value || '-';
+    const qty = document.getElementById('qty')?.value || '-';
     const requestedBy = document.getElementById('requested_by')?.value || '-';
     const shippedBy = document.getElementById('shipped_by')?.value || '-';
     const shippedTo = document.getElementById('shipped_to')?.value || '-';
@@ -685,6 +697,7 @@ function updateMovementPreview() {
 
     document.getElementById('preview-order-id').textContent = orderId;
     document.getElementById('preview-date').textContent = movementDate;
+    document.getElementById('preview-qty').textContent = qty;
     document.getElementById('preview-requested-by').textContent = requestedBy;
     document.getElementById('preview-shipped-by').textContent = shippedBy;
     document.getElementById('preview-shipped-to').textContent = shippedTo;

@@ -24,8 +24,6 @@ class IgloohomeStockMovement extends Model
         'tracking_number',
         'carrier',
         'reference_document',
-        'stock_before',
-        'stock_after',
         'note',
         'user_id',
 
