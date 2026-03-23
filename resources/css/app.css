@@ -1,0 +1,36 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #f8f9fa;
+}
+
+.topbar {
+    background: #ffffff;
+}
+
+.navbar {
+    padding: 8px 20px;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+
+.dashboard-card {
+    border-radius: 14px;
+}
+
+.dashboard-card .card-body {
+    padding: 1.25rem;
+}
+
+
