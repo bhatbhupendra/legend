@@ -556,12 +556,6 @@
                 <span class="val">{{ $summary['total_products'] }}</span>
             </div>
             <div class="dash-info-line">
-                <span class="label">Avg. Stock / SKU</span>
-                <span class="val">
-                    {{ $summary['total_products'] > 0 ? round($summary['total_stock'] / $summary['total_products'], 1) : 0 }}
-                </span>
-            </div>
-            <div class="dash-info-line">
                 <span class="label">Stock Health</span>
                 <span class="val" style="color:#16a34a;">
                     {{ $summary['total_products'] > 0 ? round((($summary['total_products'] - $summary['low_stock']) / $summary['total_products']) * 100) : 0 }}%

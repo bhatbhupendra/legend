@@ -68,6 +68,27 @@
     flex-wrap: wrap;
 }
 
+.dash-action-btn {
+    border-radius: 6px;
+    padding: 7px 15px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    transition: opacity .15s, transform .1s, box-shadow .15s;
+    white-space: nowrap;
+}
+
+.dash-action-btn.solid-green {
+    background: #16a34a;
+    color: #fff;
+    border-color: #16a34a;
+}
+
 /* Header action buttons */
 .dash-hdr-btn {
     border-radius: 6px;
@@ -576,6 +597,14 @@ mark.etbl-hl {
                 <span class="etbl-count" id="etbl-total-count">{{ $products->total() }} total</span>
             </div>
             <div class="etbl-topbar-right">
+                {{--add product--}}
+                <a href="{{ route('wellway.create') }}" class="dash-action-btn solid-green">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    New Product
+                </a>
 
                 {{--Export--}}
                 <a href=""
