@@ -796,12 +796,16 @@ mark.etbl-hl {
                                 <a href="{{ route('wellway.movements', $product->id) }}" class="etbl-act-btn history">
                                     🕓 History
                                 </a>
-                                <form action="{{ route('wellway.destroy', $product->id) }}" method="POST"
-                                    onsubmit="return confirm('Delete this product?')" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="etbl-act-btn delete">🗑 Delete</button>
-                                </form>
+                                @auth
+                                    @if(auth()->user()->role === 'owner')
+                                        <form action="{{ route('wellway.destroy', $product->id) }}" method="POST"
+                                            onsubmit="return confirm('Delete this product?')" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="etbl-act-btn delete">🗑 Delete</button>
+                                        </form>
+                                    @endif
+                                @endauth
                             </div>
                         </td>
                     </tr>

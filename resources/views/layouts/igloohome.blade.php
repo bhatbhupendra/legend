@@ -287,19 +287,6 @@
         gap: 10px;
     }
 
-    /* Topbar pill badge */
-    .igl-topbar-badge {
-        background: rgba(255, 255, 255, .1);
-        border: 1px solid rgba(255, 255, 255, .12);
-        border-radius: 20px;
-        padding: 4px 12px;
-        font-size: 11.5px;
-        color: rgba(255, 255, 255, .6);
-        font-weight: 500;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-    }
 
     .igl-topbar-loged-user-details {
         color: #ffffff;
@@ -308,13 +295,6 @@
         text-align: end;
     }
 
-    .igl-topbar-badge .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: #22c55e;
-        animation: pulse-dot 2s ease-in-out infinite;
-    }
 
     @keyframes pulse-dot {
 
@@ -638,11 +618,6 @@
                 </div>
 
                 <div class="igl-topbar-right">
-                    <!-- Live status badge -->
-                    <div class="igl-topbar-badge">
-                        <span class="dot"></span>
-                        Live
-                    </div>
 
                     <div class="igl-topbar-loged-user-details">
                         <div class="fw-semibold" style="">
