@@ -43,13 +43,13 @@ APP_ENV=local
 APP_KEY=base64:5emZJ9qwzUbOHDj4K5gzuDlxc6fDOYgTJfEWTiPX6gw=
 APP_DEBUG=true
 APP_ENV=production
-APP_URL=http://legend.growbridges.com
+APP_URL=http://legendtokyobase.com
 
 DB_CONNECTION=mysql
-DB_HOST=legend.growbridges.com
+DB_HOST=legendtokyobase.com
 DB_PORT=3306
-DB_DATABASE=growbrid_legend
-DB_USERNAME=growbrid_bhat
-DB_PASSWORD=tmzrkXklE&pN7$}3
+DB_DATABASE=legendto_legend
+DB_USERNAME=legendto_bhat
+DB_PASSWORD=caqEYH]d}0Yt]!fY
 
 <!-- setup database -->

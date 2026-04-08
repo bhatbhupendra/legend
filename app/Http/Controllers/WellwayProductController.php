@@ -16,9 +16,16 @@ class WellwayProductController extends Controller
             'total_products' => WellwayProduct::count(),
             'total_stock'    => WellwayProduct::sum('stock'),
             'low_stock'      => WellwayProduct::where('stock', '<=', 5)->count(),
+            'total_value' => WellwayProduct::sum(DB::raw('stock * buy_price')),
         ];
 
         return view('wellway.index', compact('products', 'summary'));
+    }
+
+    public function products(){
+        $products = WellwayProduct::latest()->paginate(10);
+
+        return view('wellway.products', compact('products'));
     }
 
     public function create(){

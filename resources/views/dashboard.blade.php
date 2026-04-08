@@ -10,22 +10,30 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
 
 :root {
-    --bg-main: #0f1117;
-    --bg-card: #1a1d27;
-    --bg-card2: #1e2130;
-    --bg-hover: #252840;
-    --border: rgba(255, 255, 255, 0.07);
-    --border-light: rgba(255, 255, 255, 0.12);
-    --text-primary: #f0f2f8;
-    --text-muted: #7a7f9a;
-    --text-dim: #4a5070;
-    --accent-green: #22c55e;
-    --accent-blue: #3b82f6;
-    --accent-orange: #f97316;
-    --accent-cyan: #06b6d4;
-    --accent-yellow: #eab308;
-    --accent-purple: #a855f7;
-    --accent-red: #ef4444;
+    --bg-main: #f3f4f6;
+    --bg-card: #ffffff;
+    --bg-card2: #f8fafc;
+    --bg-hover: #f1f5f9;
+
+    --border: #dbe1e8;
+    --border-light: #e5eaf0;
+
+    --text-primary: #1f2937;
+    --text-muted: #6b7280;
+    --text-dim: #94a3b8;
+
+    --accent-green: #198754;
+    --accent-blue: #0d6efd;
+    --accent-orange: #fd7e14;
+    --accent-cyan: #0dcaf0;
+    --accent-yellow: #ffc107;
+    --accent-purple: #6f42c1;
+    --accent-red: #dc3545;
+
+    --table-head-bg: #1f2937;
+    --table-head-text: #ffffff;
+    --sidebar-btn-bg: #ffffff;
+    --sidebar-btn-border: #3b82f6;
 }
 
 * {
@@ -51,6 +59,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
 }
 
 .igh-header-left h2 {
@@ -60,6 +69,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    color: var(--text-primary);
 }
 
 .igh-header-left p {
@@ -86,12 +96,11 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    transition: filter .15s, transform .1s;
+    transition: .18s ease;
     text-decoration: none;
 }
 
 .igh-btn:hover {
-    filter: brightness(1.12);
     transform: translateY(-1px);
 }
 
@@ -116,13 +125,13 @@
 }
 
 .igh-btn-ghost {
-    background: rgba(255, 255, 255, 0.07);
+    background: #fff;
     color: var(--text-primary);
-    border: 1px solid var(--border-light);
+    border: 1px solid var(--border);
 }
 
 .igh-btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: #f8fafc;
 }
 
 .igh-btn-sm {
@@ -131,14 +140,14 @@
 }
 
 .igh-btn-dashed {
-    background: transparent;
-    border: 1.5px dashed rgba(255, 255, 255, 0.18);
+    background: #fff;
+    border: 1.5px dashed #cbd5e1;
     color: var(--text-muted);
     font-size: .75rem;
     padding: 6px 12px;
     border-radius: 8px;
     cursor: pointer;
-    transition: border-color .15s, color .15s;
+    transition: .15s ease;
     font-family: 'DM Sans', sans-serif;
     width: 100%;
     display: block;
@@ -148,6 +157,7 @@
 .igh-btn-dashed:hover {
     border-color: var(--accent-blue);
     color: var(--accent-blue);
+    background: #eff6ff;
 }
 
 /* ── KPI Strip ── */
@@ -157,33 +167,13 @@
     border-radius: 3px 3px 0 0;
 }
 
-.cb-blue {
-    background: var(--accent-blue);
-}
-
-.cb-green {
-    background: var(--accent-green);
-}
-
-.cb-red {
-    background: var(--accent-red);
-}
-
-.cb-yellow {
-    background: var(--accent-yellow);
-}
-
-.cb-cyan {
-    background: var(--accent-cyan);
-}
-
-.cb-purple {
-    background: var(--accent-purple);
-}
-
-.cb-gray {
-    background: var(--text-dim);
-}
+.cb-blue { background: var(--accent-blue); }
+.cb-green { background: var(--accent-green); }
+.cb-red { background: var(--accent-red); }
+.cb-yellow { background: var(--accent-yellow); }
+.cb-cyan { background: var(--accent-cyan); }
+.cb-purple { background: var(--accent-purple); }
+.cb-gray { background: var(--text-dim); }
 
 .igh-kpi-strip {
     display: grid;
@@ -207,7 +197,7 @@
     background: var(--bg-card);
     border-right: 1px solid var(--border);
     padding: 20px 18px 18px;
-    transition: background .15s;
+    transition: .15s ease;
 }
 
 .kpi-card:hover {
@@ -232,6 +222,7 @@
     font-weight: 700;
     line-height: 1;
     margin: 0 0 5px;
+    color: var(--text-primary);
 }
 
 .kpi-card .kpi-sub {
@@ -241,11 +232,11 @@
 
 .kpi-card .kpi-icon {
     font-size: 1.1rem;
-    opacity: .7;
+    opacity: .75;
 }
 
 .kpi-placeholder {
-    background: #22253a;
+    background: #f8fafc;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -263,7 +254,7 @@
 .kpi-placeholder .kph-bar {
     width: 28px;
     height: 2px;
-    background: rgba(255, 255, 255, .1);
+    background: #dbe1e8;
     margin: 6px 0;
 }
 
@@ -271,7 +262,7 @@
     font-size: .72rem;
     color: var(--accent-blue);
     text-decoration: none;
-    opacity: .7;
+    opacity: .8;
 }
 
 /* ── Body ── */
@@ -303,8 +294,9 @@
 .igh-panel {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
 }
 
 .igh-panel-header {
@@ -315,6 +307,7 @@
     letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--text-muted);
+    background: #fff;
 }
 
 .igh-panel-body {
@@ -326,7 +319,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 7px 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-light);
     font-size: .82rem;
 }
 
@@ -342,6 +335,7 @@
     font-weight: 600;
     font-family: 'DM Mono', monospace;
     font-size: .8rem;
+    color: var(--text-primary);
 }
 
 .detail-row .dr-value.ok {
@@ -351,7 +345,7 @@
 .detail-row .dr-ph {
     width: 90px;
     height: 9px;
-    background: rgba(255, 255, 255, 0.06);
+    background: #e5e7eb;
     border-radius: 4px;
 }
 
@@ -376,7 +370,7 @@
     }
 }
 
-/* ── Bottom row: Reminders | Info Summary | Placeholders ── */
+/* ── Bottom row ── */
 .bottom-row-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -400,8 +394,9 @@
 .igh-product-section {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
 }
 
 .prd-header {
@@ -412,6 +407,7 @@
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
+    background: #fff;
 }
 
 .prd-header h6 {
@@ -424,8 +420,8 @@
 }
 
 .igh-search {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-light);
+    background: #fff;
+    border: 1px solid var(--border);
     border-radius: 7px;
     color: var(--text-primary);
     font-size: .8rem;
@@ -433,11 +429,12 @@
     font-family: 'DM Sans', sans-serif;
     outline: none;
     width: 180px;
-    transition: border-color .15s;
+    transition: border-color .15s, box-shadow .15s;
 }
 
 .igh-search:focus {
     border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
 }
 
 .igh-search::placeholder {
@@ -447,14 +444,15 @@
 .prd-scroll {
     max-height: 520px;
     overflow-y: auto;
+    background: #fff;
 }
 
 .prd-scroll::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
 }
 
 .prd-scroll::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, .08);
+    background: #cbd5e1;
     border-radius: 3px;
 }
 
@@ -466,16 +464,22 @@
 
 .igh-table thead tr {
     border-bottom: 1px solid var(--border);
+    background: var(--table-head-bg);
 }
 
 .igh-table thead th {
-    padding: 9px 14px;
-    font-size: .61rem;
+    padding: 11px 14px;
+    font-size: .78rem;
     font-weight: 700;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--table-head-text);
     text-align: left;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.igh-table thead th:last-child {
+    border-right: none;
 }
 
 .igh-table thead th.c {
@@ -483,8 +487,9 @@
 }
 
 .igh-table tbody tr {
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-light);
     transition: background .12s;
+    background: #fff;
 }
 
 .igh-table tbody tr:hover {
@@ -497,6 +502,12 @@
 
 .igh-table td {
     padding: 9px 14px;
+    color: var(--text-primary);
+    border-right: 1px solid var(--border-light);
+}
+
+.igh-table td:last-child {
+    border-right: none;
 }
 
 .igh-table td.c {
@@ -510,7 +521,7 @@
 }
 
 .badge-in {
-    background: rgba(34, 197, 94, .12);
+    background: rgba(25, 135, 84, .12);
     color: var(--accent-green);
     border-radius: 20px;
     padding: 2px 9px;
@@ -519,8 +530,8 @@
 }
 
 .badge-low {
-    background: rgba(234, 179, 8, .12);
-    color: var(--accent-yellow);
+    background: rgba(255, 193, 7, .15);
+    color: #9a6700;
     border-radius: 20px;
     padding: 2px 9px;
     font-size: .67rem;
@@ -528,7 +539,7 @@
 }
 
 .badge-out {
-    background: rgba(239, 68, 68, .12);
+    background: rgba(220, 53, 69, .12);
     color: var(--accent-red);
     border-radius: 20px;
     padding: 2px 9px;
@@ -537,23 +548,24 @@
 }
 
 .go-btn {
-    background: var(--accent-blue);
+    background: var(--accent-green);
     color: #fff;
     border: none;
     border-radius: 6px;
     font-size: .7rem;
     font-weight: 700;
-    padding: 4px 13px;
+    padding: 7px 13px;
     cursor: pointer;
     font-family: 'DM Sans', sans-serif;
     letter-spacing: .04em;
-    transition: background .12s, transform .1s;
+    transition: .12s ease;
     text-decoration: none;
     display: inline-block;
+    white-space: nowrap;
 }
 
 .go-btn:hover {
-    background: #2563eb;
+    background: #157347;
     transform: translateY(-1px);
     color: #fff;
 }
@@ -566,6 +578,7 @@
     justify-content: space-between;
     font-size: .75rem;
     color: var(--text-muted);
+    background: #fff;
 }
 
 /* ── Right Sidebar ── */
@@ -575,13 +588,14 @@
     gap: 14px;
 }
 
-/* Sidebar panel base (reuses .igh-panel) */
+/* Sidebar panel base */
 .sb-panel-hdr {
     padding: 11px 16px;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: #fff;
 }
 
 .sb-panel-hdr .sb-title {
@@ -606,7 +620,7 @@
     font-size: .7rem;
     color: var(--accent-blue);
     text-decoration: none;
-    opacity: .75;
+    opacity: .8;
 }
 
 .sb-panel-hdr .sb-link:hover {
@@ -615,6 +629,7 @@
 
 .sb-body {
     padding: 14px 16px;
+    background: #fff;
 }
 
 /* Reminders */
@@ -623,7 +638,7 @@
     gap: 10px;
     align-items: flex-start;
     padding: 9px 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-light);
 }
 
 .reminder-item:last-child {
@@ -641,12 +656,10 @@
 
 .ri-dot-red {
     background: var(--accent-red);
-    box-shadow: 0 0 5px var(--accent-red);
 }
 
 .ri-dot-yellow {
     background: var(--accent-yellow);
-    box-shadow: 0 0 5px var(--accent-yellow);
 }
 
 .ri-dot-blue {
@@ -661,6 +674,7 @@
     font-size: .8rem;
     font-weight: 500;
     line-height: 1.3;
+    color: var(--text-primary);
 }
 
 .ri-due {
@@ -682,17 +696,17 @@
 }
 
 .note-chip.nc-yellow {
-    background: rgba(234, 179, 8, .08);
+    background: rgba(255, 193, 7, .10);
     border-color: var(--accent-yellow);
 }
 
 .note-chip.nc-blue {
-    background: rgba(59, 130, 246, .08);
+    background: rgba(13, 110, 253, .08);
     border-color: var(--accent-blue);
 }
 
 .note-chip.nc-green {
-    background: rgba(34, 197, 94, .08);
+    background: rgba(25, 135, 84, .08);
     border-color: var(--accent-green);
 }
 
@@ -710,8 +724,8 @@
 
 .note-input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-light);
+    background: #fff;
+    border: 1px solid var(--border);
     border-radius: 7px;
     color: var(--text-primary);
     font-size: .78rem;
@@ -720,11 +734,12 @@
     resize: none;
     outline: none;
     margin-top: 10px;
-    transition: border-color .15s;
+    transition: border-color .15s, box-shadow .15s;
 }
 
 .note-input:focus {
     border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
 }
 
 .note-input::placeholder {
@@ -737,7 +752,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 7px 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-light);
     font-size: .79rem;
 }
 
@@ -753,6 +768,7 @@
     font-weight: 600;
     font-family: 'DM Mono', monospace;
     font-size: .76rem;
+    color: var(--text-primary);
 }
 
 .info-row .ir-val.danger {
@@ -765,7 +781,7 @@
 
 /* Placeholder slot */
 .sb-placeholder {
-    border: 1.5px dashed rgba(255, 255, 255, 0.1);
+    border: 1.5px dashed #cbd5e1;
     border-radius: 10px;
     padding: 18px;
     display: flex;
@@ -775,12 +791,14 @@
     text-align: center;
     gap: 6px;
     cursor: pointer;
-    transition: border-color .15s;
+    transition: .15s ease;
     min-height: 80px;
+    background: #fff;
 }
 
 .sb-placeholder:hover {
     border-color: var(--accent-blue);
+    background: #eff6ff;
 }
 
 .sb-placeholder i {
@@ -813,22 +831,10 @@
     flex-shrink: 0;
 }
 
-.sdot-green {
-    background: var(--accent-green);
-    box-shadow: 0 0 6px var(--accent-green);
-}
-
-.sdot-red {
-    background: var(--accent-red);
-}
-
-.sdot-blue {
-    background: var(--accent-blue);
-}
-
-.sdot-gray {
-    background: var(--text-dim);
-}
+.sdot-green { background: var(--accent-green); }
+.sdot-red { background: var(--accent-red); }
+.sdot-blue { background: var(--accent-blue); }
+.sdot-gray { background: var(--text-dim); }
 
 .si {
     display: flex;
@@ -864,23 +870,28 @@
             <p>Real-time product &amp; stock overview</p>
         </div>
         <div class="igh-header-actions">
-            <a href="{{ route('dashboard') }}" class="igh-link"><button class="igh-btn igh-btn-green"><i
-                        class="bi bi-plus-lg"></i>
-                    Refresh</button></a>
-            <a href="{{ route('users.index') }}" class="igh-link"><button class="igh-btn igh-btn-green"><i
-                        class="bi bi-plus-lg"></i>
-                    Manage Users</button></a>
-            <a href="{{ route('profile.edit') }}" class="igh-link"> <button class="igh-btn igh-btn-blue"><i
-                        class="bi bi-download"></i>
-                    Profile</button>
+            <a href="{{ route('dashboard') }}" class="igh-link">
+                <button class="igh-btn igh-btn-green">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
+            </a>
+
+            <a href="{{ route('users.index') }}" class="igh-link">
+                <button class="igh-btn igh-btn-green">
+                    <i class="bi bi-people"></i> Manage Users
+                </button>
+            </a>
+
+            <a href="{{ route('profile.edit') }}" class="igh-link">
+                <button class="igh-btn igh-btn-blue">
+                    <i class="bi bi-person"></i> Profile
+                </button>
             </a>
         </div>
     </div>
 
-
     {{-- ══ BODY ══ --}}
     <div class="igh-body">
-        {{-- ── ROW 1: Product Table (left) + Notes (right) ── --}}
         <div class="prd-notes-grid">
 
             {{-- LEFT: Product Table --}}
@@ -890,12 +901,17 @@
                         <h6>Product Area</h6>
                         <span style="font-size:.72rem;color:var(--text-muted);">Quick access — all products</span>
                     </div>
-                    <div style="display:flex;gap:8px;align-items:center;">
+
+                    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                         <input type="text" class="igh-search" id="ighSearch" placeholder="Search products…">
-                        <button class="igh-btn igh-btn-green igh-btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#addProductModal"><i class="bi bi-plus-lg"></i> New
-                            Product</button>
-                        <button class="igh-btn igh-btn-ghost igh-btn-sm"><i class="bi bi-funnel"></i> Filter</button>
+
+                        <button class="igh-btn igh-btn-green igh-btn-sm" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                            <i class="bi bi-plus-lg"></i> New Product
+                        </button>
+
+                        <button class="igh-btn igh-btn-ghost igh-btn-sm">
+                            <i class="bi bi-funnel"></i> Filter
+                        </button>
                     </div>
                 </div>
 
@@ -915,31 +931,30 @@
                         </thead>
                         <tbody>
                             @foreach($products as $p)
-                            @php
-                            $bc = match($p['status']) {
-                            'In Stock' => 'badge-in',
-                            'Low Stock' => 'badge-low',
-                            'Out of Stock' => 'badge-out',
-                            default => '',
-                            };
-                            @endphp
-                            <tr class="prd-row">
-                                <td style="color:var(--text-dim);font-size:.72rem;padding-left:20px;">{{ $p['id'] }}
-                                </td>
-                                <td style="font-weight:500;">{{ $p['name_en'] }}({{ $p['name_jp'] }})</td>
-                                <td class="c mono">{{ $p['sku'] }}</td>
-                                <td class="c" style="font-family:'DM Mono',monospace;font-size:.8rem;">
-                                    00</td>
-                                <td class="c"><span class="{{ $bc }}">{{ $p['status'] }}</span></td>
-                                <td class="c" style="color:var(--text-muted);font-size:.76rem;">{{ $p['category'] }}
-                                </td>
-                                <td class="c"
-                                    style="font-family:'DM Mono',monospace;font-size:.78rem;color:var(--accent-yellow);">
-                                    {{ $p['description'] }}</td>
-                                <td class="c"><a href="{{ url('/'.$p['redirect_id']) }}"
-                                        class="go-btn">{{ $p['name_en'] }}
-                                        Dashboard</a></td>
-                            </tr>
+                                @php
+                                    $bc = match($p['status']) {
+                                        'In Stock' => 'badge-in',
+                                        'Low Stock' => 'badge-low',
+                                        'Out of Stock' => 'badge-out',
+                                        default => '',
+                                    };
+                                @endphp
+                                <tr class="prd-row">
+                                    <td style="color:var(--text-dim);font-size:.72rem;padding-left:20px;">{{ $p['id'] }}</td>
+                                    <td style="font-weight:500;">{{ $p['name_en'] }} ({{ $p['name_jp'] }})</td>
+                                    <td class="c mono">{{ $p['sku'] }}</td>
+                                    <td class="c" style="font-family:'DM Mono',monospace;font-size:.8rem;">00</td>
+                                    <td class="c"><span class="{{ $bc }}">{{ $p['status'] }}</span></td>
+                                    <td class="c" style="color:var(--text-muted);font-size:.76rem;">{{ $p['category'] }}</td>
+                                    <td class="c" style="font-family:'DM Mono',monospace;font-size:.78rem;color:#9a6700;">
+                                        {{ $p['description'] }}
+                                    </td>
+                                    <td class="c">
+                                        <a href="{{ url('/'.$p['redirect_id']) }}" class="go-btn">
+                                            {{ $p['name_en'] }} Dashboard
+                                        </a>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -949,43 +964,50 @@
                     <span>{{ count($products) }} products listed</span>
                     <a href="{{ url('/products') }}" class="igh-btn igh-btn-ghost igh-btn-sm">View All Products →</a>
                 </div>
-            </div>{{-- /product table --}}
+            </div>
 
             {{-- RIGHT: Notes panel --}}
             <div class="igh-panel">
                 <div class="sb-panel-hdr">
-                    <span class="sb-title"><i class="bi bi-journal-text" style="color:var(--accent-green)"></i>
-                        Notes</span>
-                    <button class="igh-btn igh-btn-ghost igh-btn-sm" style="padding:3px 9px;"><i
-                            class="bi bi-plus"></i></button>
+                    <span class="sb-title">
+                        <i class="bi bi-journal-text" style="color:var(--accent-green)"></i> Notes
+                    </span>
+                    <button class="igh-btn igh-btn-ghost igh-btn-sm" style="padding:3px 9px;">
+                        <i class="bi bi-plus"></i>
+                    </button>
                 </div>
+
                 <div class="sb-body">
                     <div class="note-chip nc-yellow">
                         <div class="nc-text">Discuss bulk pricing for Q2 on Tuesday.</div>
                         <div class="nc-date">Mar 18 · Admin</div>
                     </div>
+
                     <div class="note-chip nc-blue">
                         <div class="nc-text">Prepare all PO receipts.</div>
                         <div class="nc-date">Mar 17 · Admin</div>
                     </div>
+
                     <div class="note-chip nc-green">
                         <div class="nc-text">Generate Report.</div>
                         <div class="nc-date">Mar 15 · Admin</div>
                     </div>
+
                     <textarea class="note-input" rows="2" placeholder="Add a quick note…"></textarea>
-                    <button class="igh-btn igh-btn-green igh-btn-sm"
-                        style="width:100%;margin-top:8px;justify-content:center;"><i class="bi bi-check-lg"></i> Save
-                        Note</button>
+
+                    <button class="igh-btn igh-btn-green igh-btn-sm" style="width:100%;margin-top:8px;justify-content:center;">
+                        <i class="bi bi-check-lg"></i> Save Note
+                    </button>
                 </div>
             </div>
-        </div>{{-- /prd-notes-grid --}}
-    </div>{{-- /body --}}
-</div>{{-- /igh-wrap --}}
+        </div>
+    </div>
+</div>
 
 @include('partials.pop-up-add-product-modal')
 
 <script>
-document.getElementById('ighSearch').addEventListener('input', function() {
+document.getElementById('ighSearch').addEventListener('input', function () {
     const q = this.value.toLowerCase();
     document.querySelectorAll('#ighTable .prd-row').forEach(row => {
         row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';

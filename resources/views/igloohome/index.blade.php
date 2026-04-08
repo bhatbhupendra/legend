@@ -540,7 +540,7 @@
                 </svg>
             </div>
             <div class="dash-kpi-label">Total Value</div>
-            <div class="dash-kpi-value">¥ {{ number_format($summary['total_value'], 2) }}</div>
+            <div class="dash-kpi-value">$ {{ number_format($summary['total_value'], 2) }}</div>
             <div class="dash-kpi-meta">Total value in Yen</div>
         </div>
     </div>{{-- /dash-kpi-row --}}

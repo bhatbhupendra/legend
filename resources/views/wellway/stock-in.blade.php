@@ -1,88 +1,617 @@
 @extends('layouts.wellway')
 
 @section('content')
+<style>
+:root {
+    --ui-bg: #ffffff;
+    --ui-header-bg: #1a1d23;
+    --ui-header-text: #ffffff;
+    --ui-border: #e2e6ea;
+    --ui-text: #1e2329;
+    --ui-muted: #6b7280;
+    --ui-accent: #4361ee;
+    --ui-success: #16a34a;
+    --ui-success-dark: #15803d;
+    --ui-danger: #dc2626;
+    --ui-soft: #f8f9fb;
+    --ui-soft-2: #f1f3f5;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --shadow-card: 0 2px 16px rgba(0, 0, 0, .07);
+}
+
+.eform-wrapper {
+    background: var(--ui-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.eform-topbar {
+    background: var(--ui-header-bg);
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.eform-title {
+    color: var(--ui-header-text);
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.eform-subtitle {
+    color: rgba(255, 255, 255, .65);
+    font-size: 12.5px;
+    margin-top: 2px;
+}
+
+.eform-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.eform-top-badge {
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.eform-infobar {
+    background: var(--ui-soft);
+    border-bottom: 1px solid var(--ui-border);
+    padding: 10px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    align-items: center;
+}
+
+.eform-info-chip {
+    font-size: 12.5px;
+    color: var(--ui-muted);
+    background: #fff;
+    border: 1px solid var(--ui-border);
+    border-radius: 999px;
+    padding: 6px 12px;
+}
+
+.eform-info-chip strong {
+    color: var(--ui-text);
+}
+
+.eform-body {
+    padding: 22px 20px 20px;
+}
+
+.eform-section {
+    background: #fff;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.eform-section-head {
+    background: var(--ui-soft);
+    border-bottom: 1px solid var(--ui-border);
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ui-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.eform-section-body {
+    padding: 16px;
+}
+
+.eform-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ui-text);
+    margin-bottom: 7px;
+    display: inline-block;
+}
+
+.eform-required {
+    color: var(--ui-danger);
+    margin-left: 3px;
+}
+
+.eform-control,
+.eform-select,
+.eform-textarea {
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-sm);
+    min-height: 42px;
+    padding: 10px 12px;
+    font-size: 13.5px;
+    color: var(--ui-text);
+    background: #fff;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.eform-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.eform-control:focus,
+.eform-select:focus,
+.eform-textarea:focus {
+    border-color: var(--ui-accent);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, .10);
+    outline: none;
+}
+
+.eform-control::placeholder,
+.eform-textarea::placeholder {
+    color: #9ca3af;
+}
+
+.eform-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: var(--ui-muted);
+}
+
+.eform-field {
+    margin-bottom: 16px;
+}
+
+.eform-error {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--ui-danger);
+    font-weight: 600;
+}
+
+.eform-preview {
+    background: linear-gradient(135deg, #f6fff8 0%, #ecfdf3 100%);
+    border: 1px solid #ccebd5;
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    height: 100%;
+}
+
+.eform-preview-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ui-muted);
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    margin-bottom: 10px;
+}
+
+.eform-preview-card {
+    background: #fff;
+    border: 1px solid #d8f0df;
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.eform-stock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #dcfce7;
+    color: var(--ui-success-dark);
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.eform-stock-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ui-success);
+    display: inline-block;
+}
+
+.eform-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ui-text);
+    margin-bottom: 4px;
+}
+
+.eform-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.eform-pill {
+    background: #fff;
+    border: 1px solid var(--ui-border);
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: var(--ui-text);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.eform-highlight-box {
+    margin-top: 12px;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+
+.eform-highlight-label {
+    font-size: 11px;
+    color: var(--ui-muted);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: .4px;
+    margin-bottom: 4px;
+}
+
+.eform-highlight-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ui-success-dark);
+}
+
+.eform-footer {
+    border-top: 1px solid var(--ui-border);
+    background: var(--ui-soft);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.eform-footer-note {
+    font-size: 12px;
+    color: var(--ui-muted);
+}
+
+.eform-btn-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.eform-btn {
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all .15s ease;
+    cursor: pointer;
+}
+
+.eform-btn:hover {
+    transform: translateY(-1px);
+    opacity: .95;
+}
+
+.eform-btn-success {
+    background: var(--ui-success);
+    color: #fff;
+    border-color: var(--ui-success);
+}
+
+.eform-btn-success:hover {
+    background: var(--ui-success-dark);
+    color: #fff;
+}
+
+.eform-btn-secondary {
+    background: #fff;
+    color: var(--ui-text);
+    border-color: #d1d5db;
+}
+
+.eform-btn-secondary:hover {
+    background: #f9fafb;
+    color: var(--ui-text);
+}
+</style>
+
 <div class="box-panel">
-    <h4 class="mb-3">Stock In - {{ $product->name_en }}</h4>
+    <div class="eform-wrapper">
 
-    <form action="{{ route('wellway.stockin', $product->id) }}" method="POST">
-        @csrf
-
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Order ID</label>
-                <input type="text" name="order_id" class="form-control" value="{{ old('order_id') }}">
+        <div class="eform-topbar">
+            <div>
+                <h4 class="eform-title mb-0">Stock In - {{ $product->name_en }}</h4>
+                <div class="eform-subtitle">
+                    Record incoming stock with shipment and reference details
+                </div>
             </div>
 
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Quantity Received</label>
-                <input type="number" name="qty" class="form-control" min="1" value="{{ old('qty') }}" required>
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Movement Date</label>
-                <input type="date" name="movement_date" class="form-control"
-                    value="{{ old('movement_date', date('Y-m-d')) }}" required>
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Requested By</label>
-                <input type="text" name="requested_by" class="form-control" value="{{ old('requested_by') }}">
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Shipped By</label>
-                <input type="text" name="shipped_by" class="form-control" value="{{ old('shipped_by') }}">
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Shipped To</label>
-                <input type="text" name="shipped_to" class="form-control" value="{{ old('shipped_to') }}">
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Shipped On</label>
-                <input type="date" name="shipped_on" class="form-control" value="{{ old('shipped_on') }}">
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Status</label>
-                <select name="status" class="form-select">
-                    <option value="">Select Status</option>
-                    <option value="initialized" {{ old('status') == 'initialized' ? 'selected' : '' }}>Initialized
-                    </option>
-                    <option value="processing" {{ old('status') == 'processing' ? 'selected' : '' }}>Processing</option>
-                    <option value="packed" {{ old('status') == 'packed' ? 'selected' : '' }}>Packed</option>
-                    <option value="shipped" {{ old('status') == 'shipped' ? 'selected' : '' }}>Shipped</option>
-                    <option value="delivered" {{ old('status') == 'delivered' ? 'selected' : '' }}>Delivered</option>
-                    <option value="cancelled" {{ old('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                    <option value="returned" {{ old('status') == 'returned' ? 'selected' : '' }}>Returned</option>
-                </select>
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Tracking Number</label>
-                <input type="text" name="tracking_number" class="form-control" value="{{ old('tracking_number') }}">
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Carrier</label>
-                <input type="text" name="carrier" class="form-control" value="{{ old('carrier') }}">
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Reference Document</label>
-                <input type="text" name="reference_document" class="form-control"
-                    value="{{ old('reference_document') }}">
-            </div>
-
-            <div class="col-md-12 mb-3">
-                <label class="form-label">Remark</label>
-                <textarea name="note" class="form-control" rows="3">{{ old('note') }}</textarea>
+            <div class="eform-top-actions">
+                <span class="eform-top-badge">IN Movement</span>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success btn-custom">Add Stock</button>
-        <a href="{{ route('wellway.index') }}" class="btn btn-outline-secondary btn-custom">Cancel</a>
-    </form>
+        <div class="eform-infobar">
+            <span class="eform-info-chip"><strong>Product:</strong> {{ $product->name_en }}</span>
+            <span class="eform-info-chip"><strong>SKU:</strong> {{ $product->sku ?? '-' }}</span>
+            <span class="eform-info-chip"><strong>Current Stock:</strong> {{ $product->stock ?? 0 }}</span>
+        </div>
+
+        <form action="{{ route('wellway.stockin', $product->id) }}" method="POST">
+            @csrf
+
+            <div class="eform-body">
+                <div class="row g-3">
+                    <div class="col-lg-8">
+
+                        <div class="eform-section">
+                            <div class="eform-section-head">
+                                📦 Movement Information
+                            </div>
+                            <div class="eform-section-body">
+                                <div class="row">
+                                    <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Order ID</label>
+                                        <input type="text" name="order_id" id="order_id"
+                                            class="form-control eform-control" value="{{ old('order_id') }}"
+                                            placeholder="Enter order ID" oninput="updateStockInPreview()">
+                                        @error('order_id')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Quantity Received <span
+                                                class="eform-required">*</span></label>
+                                        <input type="number" name="qty" id="qty" class="form-control eform-control"
+                                            min="1" value="{{ old('qty') }}" required placeholder="0"
+                                            oninput="updateStockInPreview()">
+                                        @error('qty')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Movement Date <span
+                                                class="eform-required">*</span></label>
+                                        <input type="date" name="movement_date" id="movement_date"
+                                            class="form-control eform-control"
+                                            value="{{ old('movement_date', date('Y-m-d')) }}" required
+                                            oninput="updateStockInPreview()">
+                                        @error('movement_date')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Requested By</label>
+                                        <input type="text" name="requested_by" id="requested_by"
+                                            class="form-control eform-control" value="{{ old('requested_by') }}"
+                                            placeholder="Requested by" oninput="updateStockInPreview()">
+                                        @error('requested_by')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Shipped By</label>
+                                        <input type="text" name="shipped_by" id="shipped_by"
+                                            class="form-control eform-control" value="{{ old('shipped_by') }}"
+                                            placeholder="Shipped by" oninput="updateStockInPreview()">
+                                        @error('shipped_by')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Shipped To</label>
+                                        <input type="text" name="shipped_to" id="shipped_to"
+                                            class="form-control eform-control" value="{{ old('shipped_to') }}"
+                                            placeholder="Destination" oninput="updateStockInPreview()">
+                                        @error('shipped_to')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Shipped On</label>
+                                        <input type="date" name="shipped_on" id="shipped_on"
+                                            class="form-control eform-control" value="{{ old('shipped_on') }}"
+                                            oninput="updateStockInPreview()">
+                                        @error('shipped_on')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Status</label>
+                                        <select name="status" id="status" class="form-select eform-select"
+                                            onchange="updateStockInPreview()">
+                                            <option value="">Select Status</option>
+                                            <option value="initialized"
+                                                {{ old('status') == 'initialized' ? 'selected' : '' }}>Initialized
+                                            </option>
+                                            <option value="processing"
+                                                {{ old('status') == 'processing' ? 'selected' : '' }}>Processing
+                                            </option>
+                                            <option value="packed" {{ old('status') == 'packed' ? 'selected' : '' }}>
+                                                Packed</option>
+                                            <option value="shipped" {{ old('status') == 'shipped' ? 'selected' : '' }}>
+                                                Shipped</option>
+                                            <option value="delivered"
+                                                {{ old('status') == 'delivered' ? 'selected' : '' }}>Delivered</option>
+                                            <option value="completed"
+                                                {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                                            <option value="cancelled"
+                                                {{ old('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                            <option value="returned"
+                                                {{ old('status') == 'returned' ? 'selected' : '' }}>Returned</option>
+                                        </select>
+                                        @error('status')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4 eform-field">
+                                        <label class="eform-label">Tracking Number</label>
+                                        <input type="text" name="tracking_number" id="tracking_number"
+                                            class="form-control eform-control" value="{{ old('tracking_number') }}"
+                                            placeholder="Tracking number" oninput="updateStockInPreview()">
+                                        @error('tracking_number')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 eform-field">
+                                        <label class="eform-label">Carrier</label>
+                                        <input type="text" name="carrier" id="carrier"
+                                            class="form-control eform-control" value="{{ old('carrier') }}"
+                                            placeholder="Courier / carrier" oninput="updateStockInPreview()">
+                                        @error('carrier')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 eform-field">
+                                        <label class="eform-label">Reference Document</label>
+                                        <input type="text" name="reference_document" id="reference_document"
+                                            class="form-control eform-control" value="{{ old('reference_document') }}"
+                                            placeholder="Invoice / PO / Ref document" oninput="updateStockInPreview()">
+                                        @error('reference_document')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-12 eform-field">
+                                        <label class="eform-label">Remark</label>
+                                        <textarea name="note" id="note" class="form-control eform-textarea" rows="3"
+                                            placeholder="Add notes or remarks..."
+                                            oninput="updateStockInPreview()">{{ old('note') }}</textarea>
+                                        @error('note')
+                                        <div class="eform-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="eform-preview">
+                            <div class="eform-preview-title">Live Preview</div>
+
+                            <div class="eform-preview-card">
+                                <div class="eform-stock-badge">Stock In</div>
+
+                                <div class="eform-name">{{ $product->name_en }}</div>
+
+                                <div class="eform-meta">
+                                    <span class="eform-pill">
+                                        Order: <strong id="preview-order-id">{{ old('order_id') ?: '-' }}</strong>
+                                    </span>
+                                    <span class="eform-pill">
+                                        Qty: <strong id="preview-qty">{{ old('qty') ?: '0' }}</strong>
+                                    </span>
+                                    <span class="eform-pill">
+                                        Date: <strong
+                                            id="preview-date">{{ old('movement_date', date('Y-m-d')) }}</strong>
+                                    </span>
+                                    <span class="eform-pill">
+                                        Status: <strong id="preview-status">{{ old('status') ?: 'Not set' }}</strong>
+                                    </span>
+                                </div>
+
+                                <div class="eform-highlight-box">
+                                    <div class="eform-highlight-label">Estimated Stock After</div>
+                                    <div class="eform-highlight-value" id="preview-stock-after">
+                                        {{ ($product->stock ?? 0) + (int) old('qty', 0) }}
+                                    </div>
+                                </div>
+
+                                <div class="eform-meta mt-3">
+                                    <span class="eform-pill">
+                                        To: <strong id="preview-shipped-to">{{ old('shipped_to') ?: '-' }}</strong>
+                                    </span>
+                                    <span class="eform-pill">
+                                        Carrier: <strong id="preview-carrier">{{ old('carrier') ?: '-' }}</strong>
+                                    </span>
+                                    <span class="eform-pill">
+                                        Tracking: <strong
+                                            id="preview-tracking">{{ old('tracking_number') ?: '-' }}</strong>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="eform-footer">
+                <div class="eform-footer-note">
+                    Please verify movement details before adding stock.
+                </div>
+
+                <div class="eform-btn-group">
+                    <a href="{{ route('wellway.index') }}" class="eform-btn eform-btn-secondary">
+                        ↩ Cancel
+                    </a>
+                    <button type="submit" class="eform-btn eform-btn-success">
+                        ➕ Add Stock
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
+
+<script>
+function updateStockInPreview() {
+    const currentStock = {
+        {
+            (int)($product - > stock ?? 0)
+        }
+    };
+    const orderId = document.getElementById('order_id')?.value || '-';
+    const qty = parseInt(document.getElementById('qty')?.value || 0);
+    const movementDate = document.getElementById('movement_date')?.value || '-';
+    const status = document.getElementById('status')?.value || 'Not set';
+    const shippedTo = document.getElementById('shipped_to')?.value || '-';
+    const carrier = document.getElementById('carrier')?.value || '-';
+    const tracking = document.getElementById('tracking_number')?.value || '-';
+
+    document.getElementById('preview-order-id').textContent = orderId;
+    document.getElementById('preview-qty').textContent = qty || 0;
+    document.getElementById('preview-date').textContent = movementDate;
+    document.getElementById('preview-status').textContent = status;
+    document.getElementById('preview-shipped-to').textContent = shippedTo;
+    document.getElementById('preview-carrier').textContent = carrier;
+    document.getElementById('preview-tracking').textContent = tracking;
+    document.getElementById('preview-stock-after').textContent = currentStock + (qty || 0);
+}
+</script>
 @endsection

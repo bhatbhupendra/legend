@@ -12,10 +12,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -26,12 +22,33 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
 //admin routes
-Route::middleware(['auth', 'role:owner,admin'])->prefix('admin')->group(function () {
-    Route::resource('users', UserController::class);
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    // List users
+    Route::get('/users', [UserController::class, 'index'])
+        ->name('users.index');
+
+    // Create form
+    Route::get('/users/create', [UserController::class, 'create'])
+        ->name('users.create');
+
+    // Store user
+    Route::post('/users', [UserController::class, 'store'])
+        ->name('users.store');
+
+    // Edit form
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])
+        ->name('users.edit');
+
+    // Update user
+    Route::put('/users/{user}', [UserController::class, 'update'])
+        ->name('users.update');
+
+    // Delete user
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])
+        ->name('users.destroy');
 });
+
 //product routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/products', [ProductController::class,'products'])->name('products');
@@ -42,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/wellway', [WellwayProductController::class, 'index'])->name('wellway.index');
     Route::get('/wellway/create', [WellwayProductController::class, 'create'])->name('wellway.create');
+    Route::get('/wellway/products',[WellwayProductController::class,'products'])->name('wellway.products');
     Route::post('/wellway', [WellwayProductController::class, 'store'])->name('wellway.store');
 
     Route::get('/wellway/movements/all', [WellwayProductController::class, 'allMovements'])->name('wellway.allMovements');

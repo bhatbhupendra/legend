@@ -23,4 +23,16 @@ class WellwayProduct extends Model
     {
         return $this->hasMany(WellwayStockMovement::class, 'product_id');
     }
+
+    public function getCurrentStockAttribute(){
+        $stockIn = $this->stockMovements()
+            ->where('type', 'in')
+            ->sum('qty');
+
+        $stockOut = $this->stockMovements()
+            ->where('type', 'out')
+            ->sum('qty');
+
+        return $stockIn - $stockOut;
+    }
 }
