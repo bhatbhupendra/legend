@@ -923,28 +923,20 @@
                                 <th>Product Name</th>
                                 <th class="c">SKU</th>
                                 <th class="c">Stock</th>
-                                <th class="c">Status</th>
-                                <th class="c">Category</th>
                                 <th class="c">Cost</th>
+                                <th class="c">Category</th>
+                                <th class="c">Description</th>
                                 <th class="c">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($products as $p)
-                                @php
-                                    $bc = match($p['status']) {
-                                        'In Stock' => 'badge-in',
-                                        'Low Stock' => 'badge-low',
-                                        'Out of Stock' => 'badge-out',
-                                        default => '',
-                                    };
-                                @endphp
                                 <tr class="prd-row">
                                     <td style="color:var(--text-dim);font-size:.72rem;padding-left:20px;">{{ $p['id'] }}</td>
                                     <td style="font-weight:500;">{{ $p['name_en'] }} ({{ $p['name_jp'] }})</td>
                                     <td class="c mono">{{ $p['sku'] }}</td>
-                                    <td class="c" style="font-family:'DM Mono',monospace;font-size:.8rem;">00</td>
-                                    <td class="c"><span class="{{ $bc }}">{{ $p['status'] }}</span></td>
+                                    <td class="c" style="font-family:'DM Mono',monospace;font-size:.8rem;">{{$summary['total_' . $p['redirect_id'] . '_value']}}</td>
+                                    <td class="c" style="font-family:'DM Mono',monospace;font-size:.8rem;">$ {{$summary['total_' . $p['redirect_id'] . '_value']}}</td>
                                     <td class="c" style="color:var(--text-muted);font-size:.76rem;">{{ $p['category'] }}</td>
                                     <td class="c" style="font-family:'DM Mono',monospace;font-size:.78rem;color:#9a6700;">
                                         {{ $p['description'] }}
@@ -970,34 +962,65 @@
             <div class="igh-panel">
                 <div class="sb-panel-hdr">
                     <span class="sb-title">
-                        <i class="bi bi-journal-text" style="color:var(--accent-green)"></i> Notes
+                        <i class="bi bi-journal-text" style="color:var(--accent-green)"></i> Notes(use color for prority)
                     </span>
-                    <button class="igh-btn igh-btn-ghost igh-btn-sm" style="padding:3px 9px;">
-                        <i class="bi bi-plus"></i>
-                    </button>
+                    <span style="font-size:.7rem;color:var(--text-muted);">
+                        {{ $notes->count() }} notes
+                    </span>
                 </div>
 
                 <div class="sb-body">
-                    <div class="note-chip nc-yellow">
-                        <div class="nc-text">Discuss bulk pricing for Q2 on Tuesday.</div>
-                        <div class="nc-date">Mar 18 · Admin</div>
-                    </div>
+                    @forelse($notes as $note)
+                        <div class="note-chip nc-{{ $note->color ?? 'yellow' }}" style="position:relative;">
+                            <div class="nc-text">{{ $note->note }}</div>
+                            <div class="nc-date">
+                                {{ $note->created_at->format('M d') }} · {{ $note->user->name ?? 'Admin' }}
+                            </div>
 
-                    <div class="note-chip nc-blue">
-                        <div class="nc-text">Prepare all PO receipts.</div>
-                        <div class="nc-date">Mar 17 · Admin</div>
-                    </div>
+                            <form action="{{ route('dashboard.notes.destroy', $note->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Delete this note?')"
+                                style="position:absolute;top:8px;right:8px;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        style="border:none;background:transparent;color:#dc3545;font-size:.75rem;cursor:pointer;">
+                                    ✕
+                                </button>
+                            </form>
+                        </div>
+                    @empty
+                        <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:10px;">
+                            No notes yet.
+                        </div>
+                    @endforelse
 
-                    <div class="note-chip nc-green">
-                        <div class="nc-text">Generate Report.</div>
-                        <div class="nc-date">Mar 15 · Admin</div>
-                    </div>
+                    <form action="{{ route('dashboard.notes.store') }}" method="POST">
+                        @csrf
 
-                    <textarea class="note-input" rows="2" placeholder="Add a quick note…"></textarea>
+                        <textarea
+                            name="note"
+                            class="note-input"
+                            rows="3"
+                            placeholder="Add a quick note…"
+                            required>{{ old('note') }}</textarea>
 
-                    <button class="igh-btn igh-btn-green igh-btn-sm" style="width:100%;margin-top:8px;justify-content:center;">
-                        <i class="bi bi-check-lg"></i> Save Note
-                    </button>
+                        <select name="color" class="form-select form-select-sm mt-2">
+                            <option value="blue">Blue</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="green">Green</option>
+                        </select>
+
+                        @error('note')
+                            <div class="text-danger mt-1" style="font-size:.72rem;">{{ $message }}</div>
+                        @enderror
+
+                        <button type="submit"
+                                class="igh-btn igh-btn-green igh-btn-sm"
+                                style="width:100%;margin-top:8px;justify-content:center;">
+                            <i class="bi bi-check-lg"></i> Save Note
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

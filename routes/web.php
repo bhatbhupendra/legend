@@ -12,9 +12,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::post('/dashboard/notes', [DashboardController::class, 'storeNote'])
+        ->name('dashboard.notes.store');
+
+    Route::delete('/dashboard/notes/{note}', [DashboardController::class, 'destroyNote'])
+        ->name('dashboard.notes.destroy');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
